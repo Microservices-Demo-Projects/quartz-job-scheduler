@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean name="PrintPrimeNumbers-Job"
+          class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.example.quartz.scheduler.job.prime.PrintPrimeNumbers"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="TOTAL_REQUIRED_NUMBERS" value="5"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="PrintPrimeNumbers-Job-Trigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="PrintPrimeNumbers-Job"/>
+        <property name="cronExpression" value="0 25 20 * * ?"/>
+    </bean>
+
+
+
+
+
+
+
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="PrintPrimeNumbers-Job-Trigger"/>
+            </list>
+        </property>
+        <property name="applicationContextSchedulerContextKey"
+                  value="applicationContext">
+        </property>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop>
+                <prop key="org.quartz.threadPool.threadCount">50</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: quartz-job-scheduler
+  profiles:
+    active: json-logs,dev
+
+jobs:
+  configs:
+    xmlPath: classpath:CronJobSchedulerConfigs.xml
+# For external file
+# xmlPath: file:/opt/configs/beans-config.xml

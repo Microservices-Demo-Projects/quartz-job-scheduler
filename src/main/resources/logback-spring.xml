@@ -1,0 +1,34 @@
+<configuration>
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
+
+    <!-- Plain text logging profile -->
+    <springProfile name="!json-logs">
+        <appender name="textConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{72} traceID=%X{traceId:-NONE} user=%X{user:-anonymous} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="textConsoleAppender" />
+        </root>
+    </springProfile>
+
+    <!-- JSON logging profile -->
+    <springProfile name="json-logs">
+        <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <customFields>{"app":"${appName}","host":"${HOSTNAME}"}</customFields>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="jsonConsoleAppender" />
+        </root>
+
+        <!-- Defining log levels for specific packages -->
+        <logger name="com.example" level="DEBUG"/>
+        <logger name="web" level="WARN"/>
+        <logger name="sql" level="ERROR"/>
+    </springProfile>
+</configuration>
