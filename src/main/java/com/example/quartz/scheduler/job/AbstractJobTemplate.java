@@ -12,8 +12,12 @@ public abstract class AbstractJobTemplate extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         long startTime = System.currentTimeMillis();
-        MDC.put("JobName", context.getJobDetail().getKey().getName());
-        run(context);
+        try {
+            MDC.put("JobName", context.getJobDetail().getKey().getName());
+            run(context);
+        } finally {
+            MDC.clear();
+        }
         log.info("Total execution time: {}ms", System.currentTimeMillis() - startTime);
     }
 
