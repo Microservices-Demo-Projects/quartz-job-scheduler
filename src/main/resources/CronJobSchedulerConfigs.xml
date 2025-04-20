@@ -16,17 +16,33 @@
     <bean id="PrintPrimeNumbers-Job-Trigger"
           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="PrintPrimeNumbers-Job"/>
-        <property name="cronExpression" value="0 25 20 * * ?"/>
+        <property name="cronExpression" value="10 23 19 * * ?"/>
     </bean>
 
 
+<!--    <bean name="PrintPrimeNumbersFast-Job"-->
+<!--          class="org.springframework.scheduling.quartz.JobDetailFactoryBean">-->
+<!--        <property name="jobClass" value="com.example.quartz.scheduler.job.prime.PrintPrimeNumbers"/>-->
+<!--        <property name="jobDataAsMap">-->
+<!--            <map>-->
+<!--                <entry key="TOTAL_REQUIRED_NUMBERS" value="50"/>-->
+<!--            </map>-->
+<!--        </property>-->
+<!--    </bean>-->
+<!--    <bean id="PrintPrimeNumbersFast-Job-Trigger"-->
+<!--          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
+<!--        <property name="jobDetail" ref="PrintPrimeNumbers-Job"/>-->
+<!--        <property name="cronExpression" value="0/15 * * * * ?"/>-->
+<!--    </bean>-->
 
 
 
 
 
 
-    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+
+
+    <!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="PrintPrimeNumbers-Job-Trigger"/>
@@ -41,5 +57,5 @@
                 <prop key="org.quartz.threadPool.threadCount">50</prop>
             </props>
         </property>
-    </bean>
+    </bean>-->
 </beans>

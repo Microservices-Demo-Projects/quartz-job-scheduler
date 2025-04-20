@@ -17,10 +17,6 @@ public class JobsXmlConfigLoader implements ApplicationContextInitializer<Generi
         // Read the XML file path from properties
         String xmlPath = env.getProperty("jobs.configs.xmlPath");
 
-        // String[] xmlPaths = env.getProperty("custom.config.xml", "").split(",");
-        // You can use a comma-separated list of xml paths in the `application.properties` file and split it:
-        // jobs.configs.xmlPath=classpath:/config/beans1.xml,file:/some/external/config/beans2.xml
-
         if (xmlPath != null && !xmlPath.isEmpty()) {
             XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(context);
             reader.loadBeanDefinitions(xmlPath);
